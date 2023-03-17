@@ -19,24 +19,48 @@
 #endif
 
 #include <string>
+#include <iostream>
 #include <algorithm>
 
 
 
 bool InstallDriverFile(std::string& driver_path)
 {
-    // Driver file name in current directory
+    // Driver file name.
     const std::string driver_file(DRIVER_NAME ".sys");
 
+    // Get current executable.
+    std::string exe(2048, ' ');
+    size_t len = ::GetModuleFileNameA(nullptr, &exe[0], ::DWORD(exe.size()));
+    exe.resize(std::min<size_t>(len, exe.size()));
+
+    // Extract directory part.
+    size_t pos = exe.rfind('\\');
+    if (pos != std::string::npos) {
+        exe.resize(pos);
+    }
+    std::cout << "App dir: " << exe << std::endl;
+
+    // Check if driver is present in same directory as application.
+    std::string infile(exe + '\\' + driver_file);
+    if (::GetFileAttributesA(infile.c_str()) == INVALID_FILE_ATTRIBUTES) {
+        // Not found, replace '/exe/' with '/sys' in the directory.
+        pos = infile.rfind("\\exe\\");
+        if (pos != std::string::npos) {
+            infile.replace(pos + 1, 3, "sys");
+        }
+    }
+
     // Check if driver file exists.
-    if (::GetFileAttributesA(driver_file.c_str()) == INVALID_FILE_ATTRIBUTES) {
-        printf("Driver file %s not found in current directory\n", driver_file.c_str());
+    if (::GetFileAttributesA(infile.c_str()) == INVALID_FILE_ATTRIBUTES) {
+        printf("Driver file %s not found\n", infile.c_str());
         return false;
     }
+    std::cout << "Driver: " << infile << std::endl;
 
     // Get Windows directory (typically C:\Windows)
     driver_path.resize(MAX_PATH);
-    const size_t len = ::GetWindowsDirectoryA(&driver_path[0], MAX_PATH);
+    len = ::GetWindowsDirectoryA(&driver_path[0], MAX_PATH);
     driver_path.resize(std::min<size_t>(len, MAX_PATH));
 
     // Build final driver location.
@@ -44,7 +68,7 @@ bool InstallDriverFile(std::string& driver_path)
     driver_path += driver_file;
 
     // Install the driver in system area.
-    if (!::CopyFileA(driver_file.c_str(), driver_path.c_str(), false)) {
+    if (!::CopyFileA(infile.c_str(), driver_path.c_str(), false)) {
         printf("CopyFile() error: %d, destination: %s\n", ::GetLastError(), driver_path.c_str());
         return false;
     }

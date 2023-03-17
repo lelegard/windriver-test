@@ -148,8 +148,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\sys</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);KMDF_VERSION_MAJOR=1;KMDF_VERSION_MINOR=11</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(WDKContentRoot)\Include\wdf\kmdf\1.11</AdditionalIncludeDirectories>
-      <ExceptionHandling>
-      </ExceptionHandling>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Midl>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\sys</AdditionalIncludeDirectories>
@@ -198,8 +197,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\sys</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);KMDF_VERSION_MAJOR=1;KMDF_VERSION_MINOR=11</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(WDKContentRoot)\Include\wdf\kmdf\1.11</AdditionalIncludeDirectories>
-      <ExceptionHandling>
-      </ExceptionHandling>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Midl>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\sys</AdditionalIncludeDirectories>

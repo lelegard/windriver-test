@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sys", "Sys", "{290EBA75-A70E-4C4A-BF59-38FF2BCA1779}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nonpnpapp", "exe\nonpnpapp.vcxproj", "{18A38FF8-1227-4F3B-997B-A83A6E4CFD20}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50EE7E00-D19A-4741-9440-33BECFCF6BED} = {50EE7E00-D19A-4741-9440-33BECFCF6BED}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nonpnp", "sys\nonpnp.vcxproj", "{50EE7E00-D19A-4741-9440-33BECFCF6BED}"
 EndProject

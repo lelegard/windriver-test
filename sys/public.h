@@ -25,4 +25,4 @@
     CTL_CODE( FILEIO_TYPE, 0x903, METHOD_NEITHER , FILE_ANY_ACCESS  )
 
 #define DRIVER_NAME       "NONPNP"
-#define DEVICE_NAME       "\\\\.\\NONPNP\\dummy"
+#define DEVICE_NAME       "\\\\.\\NONPNP\\NUL"
