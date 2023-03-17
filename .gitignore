@@ -1,0 +1,7 @@
+.vs
+x64
+Win32
+ARM64
+*.exe
+*.log
+*.user
