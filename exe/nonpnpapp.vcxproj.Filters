@@ -15,13 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="testapp.c; install.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testapp.c; install.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testapp.c; install.c">
+    <ClCompile Include="testapp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
