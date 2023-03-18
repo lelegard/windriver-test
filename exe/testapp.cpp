@@ -224,8 +224,6 @@ int main(int argc, const char* argv[])
         }
 
         // The driver is not started yet so let us the install the driver.
-        // First setup full path to driver name.
-        //
         if (!GetDriverFile(driverLocation) || !InitDriver(DRIVER_NAME, driverLocation)) {
             return EXIT_FAILURE;
         }
@@ -245,23 +243,13 @@ int main(int argc, const char* argv[])
 
     }
 
-    //
     // Printing Input & Output buffer pointers and size
-    //
+    printf("InputBuffer Pointer = %p, BufLength = %Iu\n", InputBuffer, sizeof(InputBuffer));
+    printf("OutputBuffer Pointer = %p BufLength = %Iu\n", OutputBuffer, sizeof(OutputBuffer));
 
-    printf("InputBuffer Pointer = %p, BufLength = %Iu\n", InputBuffer,
-                        sizeof(InputBuffer));
-    printf("OutputBuffer Pointer = %p BufLength = %Iu\n", OutputBuffer,
-                                sizeof(OutputBuffer));
-    //
     // Performing METHOD_BUFFERED
-    //
-
-    StringCbCopy(InputBuffer, sizeof(InputBuffer),
-        "This String is from User Application; using METHOD_BUFFERED");
-
+    StringCbCopy(InputBuffer, sizeof(InputBuffer), "This String is from User Application; using METHOD_BUFFERED");
     printf("\nCalling DeviceIoControl METHOD_BUFFERED:\n");
-
     memset(OutputBuffer, 0, sizeof(OutputBuffer));
 
     bRc = DeviceIoControl ( hDevice,
@@ -280,77 +268,6 @@ int main(int argc, const char* argv[])
     }
     printf("    OutBuffer (%d): %s\n", bytesReturned, OutputBuffer);
 
-    // Performing METHOD_NEITHER
-    printf("\nCalling DeviceIoControl METHOD_NEITHER\n");
-    StringCbCopy(InputBuffer, sizeof(InputBuffer), "This String is from User Application; using METHOD_NEITHER");
-    memset(OutputBuffer, 0, sizeof(OutputBuffer));
-
-    bRc = DeviceIoControl ( hDevice,
-                            (DWORD) IOCTL_SIOCTL_METHOD_NEITHER,
-                            &InputBuffer,
-                            (DWORD) strlen ( InputBuffer )+1,
-                            &OutputBuffer,
-                            sizeof( OutputBuffer),
-                            &bytesReturned,
-                            NULL
-                            );
-
-    if ( !bRc )
-    {
-        printf ( "Error in DeviceIoControl : %d\n", GetLastError());
-        return EXIT_FAILURE;
-    }
-    printf("    OutBuffer (%d): %s\n", bytesReturned, OutputBuffer);
-
-    // Performing METHOD_IN_DIRECT
-    printf("\nCalling DeviceIoControl METHOD_IN_DIRECT\n");
-    StringCbCopy(InputBuffer, sizeof(InputBuffer), "This String is from User Application; using METHOD_IN_DIRECT");
-    StringCbCopy(OutputBuffer, sizeof(OutputBuffer), "This String is from User Application in OutBuffer; using METHOD_IN_DIRECT");
-
-    bRc = DeviceIoControl ( hDevice,
-                            (DWORD) IOCTL_SIOCTL_METHOD_IN_DIRECT,
-                            &InputBuffer,
-                            (DWORD) strlen ( InputBuffer )+1,
-                            &OutputBuffer,
-                            sizeof( OutputBuffer),
-                            &bytesReturned,
-                            NULL
-                            );
-
-    if ( !bRc )
-    {
-        printf ( "Error in DeviceIoControl : %d", GetLastError());
-        return EXIT_FAILURE;
-    }
-
-    printf("    Number of bytes transfered from OutBuffer: %d\n",
-                                    bytesReturned);
-
-    //
-    // Performing METHOD_OUT_DIRECT
-    //
-
-    printf("\nCalling DeviceIoControl METHOD_OUT_DIRECT\n");
-    StringCbCopy(InputBuffer, sizeof(InputBuffer),
-               "This String is from User Application; using METHOD_OUT_DIRECT");
-    memset(OutputBuffer, 0, sizeof(OutputBuffer));
-    bRc = DeviceIoControl ( hDevice,
-                            (DWORD) IOCTL_SIOCTL_METHOD_OUT_DIRECT,
-                            &InputBuffer,
-                            (DWORD) strlen ( InputBuffer )+1,
-                            &OutputBuffer,
-                            sizeof( OutputBuffer),
-                            &bytesReturned,
-                            NULL
-                            );
-
-    if ( !bRc )
-    {
-        printf ( "Error in DeviceIoControl : %d", GetLastError());
-        return EXIT_FAILURE;
-    }
-
-    printf("    OutBuffer (%d): %s\n", bytesReturned, OutputBuffer);
     CloseHandle(hDevice);
 
     // Unload the driver.  Ignore any errors.

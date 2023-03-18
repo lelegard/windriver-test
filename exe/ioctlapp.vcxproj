@@ -164,7 +164,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="install.cpp" />
     <ClCompile Include="testapp.cpp" />
   </ItemGroup>
   <ItemGroup>
