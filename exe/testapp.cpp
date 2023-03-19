@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <cstdarg>
 
-#include <sys\cpusysregs.h>
+#include "cpusysregs.h"
 
 #if defined(min)
 #undef min
