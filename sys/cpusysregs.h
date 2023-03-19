@@ -19,4 +19,8 @@
 #define DRIVER_FUNC_INSTALL     0x01
 #define DRIVER_FUNC_REMOVE      0x02
 
-#define DRIVER_NAME       "SIoctl"
+#define DRIVER_NAME      "cpusysregs"
+
+#define CSR_DEVICE_NAME      "\\\\.\\cpusysregs"
+#define CSR_NT_DEVICE_NAME   L"\\Device\\cpusysregs"
+#define CSR_DOS_DEVICE_NAME  L"\\DosDevices\\cpusysregs"

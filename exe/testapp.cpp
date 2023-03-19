@@ -4,11 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strsafe.h>
-#include <sys\sioctl.h>
 #include <string>
 #include <iostream>
 #include <algorithm>
 #include <cstdarg>
+
+#include <sys\cpusysregs.h>
 
 #if defined(min)
 #undef min
@@ -228,7 +229,7 @@ int main(int argc, const char* argv[])
             return EXIT_FAILURE;
         }
 
-        hDevice = CreateFile( "\\\\.\\IoctlTest",
+        hDevice = CreateFileA(CSR_DEVICE_NAME,
                             GENERIC_READ | GENERIC_WRITE,
                             0,
                             NULL,
@@ -266,7 +267,7 @@ int main(int argc, const char* argv[])
         printf ( "Error in DeviceIoControl : %d", GetLastError());
         return EXIT_FAILURE;
     }
-    printf("    OutBuffer (%d): %s\n", bytesReturned, OutputBuffer);
+    printf("Returned text: \"%.*s\"\n\n", int(bytesReturned), OutputBuffer);
 
     CloseHandle(hDevice);
 

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sys", "Sys", "{52CD4CBC-601
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ioctlapp", "exe\ioctlapp.vcxproj", "{61899E58-10C2-4EB1-9508-58AE7DC3B3A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sioctl", "sys\sioctl.vcxproj", "{29BD96E0-B6C5-42A0-B683-FD9740810699}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpusysregs", "sys\cpusysregs.vcxproj", "{29BD96E0-B6C5-42A0-B683-FD9740810699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

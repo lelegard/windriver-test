@@ -19,12 +19,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sioctl.c">
+    <ClCompile Include="cpusysregs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="sioctl.rc">
+    <ResourceCompile Include="cpusysregs.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
