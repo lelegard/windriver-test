@@ -4,9 +4,8 @@
 #if defined(KERNEL)
 #include <ntddk.h>
 #else
+#include <windows.h>
 #include <winioctl.h>
-#endif
-
 #if defined(__cplusplus)
 #if defined(min)
 #undef min
@@ -14,7 +13,8 @@
 #if defined(max)
 #undef max
 #endif
-#endif // __cplusplus
+#endif
+#endif
 
 // Device type in the "User Defined" range.
 #define SIOCTL_TYPE 40000

@@ -4,7 +4,6 @@
 // 1) C++ application: this application
 // 2) PowerShell: see loader.ps1
 
-#include <windows.h>
 #include <stdlib.h>
 #include <string>
 #include <iostream>
