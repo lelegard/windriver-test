@@ -5,21 +5,12 @@
 // 2) PowerShell: see loader.ps1
 
 #include <windows.h>
-#include <winioctl.h>
-
-#if defined(min)
-#undef min
-#endif
-#if defined(max)
-#undef max
-#endif
-
 #include <stdlib.h>
 #include <string>
 #include <iostream>
 #include <algorithm>
-
 #include "cpusysregs.h"
+
 
 // Format a string from a Windows status code.
 std::string ErrorMessage(::DWORD code = ::GetLastError())

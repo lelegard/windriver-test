@@ -1,18 +1,9 @@
 #include <windows.h>
-#include <winioctl.h>
 #include <stdlib.h>
 #include <string>
 #include <iostream>
 #include <algorithm>
-
 #include "cpusysregs.h"
-
-#if defined(min)
-#undef min
-#endif
-#if defined(max)
-#undef max
-#endif
 
 // Format a string from a Windows status code.
 std::string ErrorMessage(::DWORD code = ::GetLastError())

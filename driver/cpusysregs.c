@@ -1,4 +1,3 @@
-#include <ntddk.h>
 #include "cpusysregs.h"
 
 // Device driver routine declarations.
