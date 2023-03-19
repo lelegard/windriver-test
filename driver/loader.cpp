@@ -1,6 +1,11 @@
+// Driver loader / unloader application.
+//
+// There are two methods to load / unload the driver :
+// 1) C++ application: this application
+// 2) PowerShell: see loader.ps1
+
 #include <windows.h>
 #include <winioctl.h>
-#include <stdlib.h>
 
 #if defined(min)
 #undef min
@@ -9,6 +14,7 @@
 #undef max
 #endif
 
+#include <stdlib.h>
 #include <string>
 #include <iostream>
 #include <algorithm>

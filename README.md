@@ -1,24 +1,35 @@
----
-page_type: sample
-description: "Demonstrates usage of four different types of IOCTLs."
-languages:
-- cpp
-products:
-- windows
-- windows-wdk
----
+# Sample Windows kernel driver with buffered ioctl
 
-# IOCTL
+## Prerequisites
 
-This sample demonstrates the usage of four different types of IOCTLs (METHOD\_IN\_DIRECT, METHOD\_OUT\_DIRECT, METHOD\_NEITHER, and METHOD\_BUFFERED).
+- Install the Windows Driver Kit (WDK).
+  - See: https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk
+  - May need to install the latest Windows SDK first (link from same page).
 
-The sample shows how the user input and output buffers specified in the **DeviceIoControl** function call are handled, in each case, by the I/O subsystem and the driver.
+- Disable driver signature validation.
+  - Start Menu -> Settings -> System -> Recovery -> Advanced Startup -> Restart now
+  - "Light blue" boot menu -> Troubleshoot -> Advanced options -> Startup settings -> Restart
+  - Press F7 (for 7th option "Disable driver signature enforcement")
+  - This settings may not be persistent across reboots (to be confirmed).
 
-The sample consists of a legacy device driver and a Win32 console test application. The test application opens a handle to the device exposed by the driver and makes all four different **DeviceIoControl** calls, one after another. To understand how the IRP fields are set the I/O manager, you should run the checked build version of the driver and look at the debug output.
+- Disable secure boot on Windows 11
+  - Start Menu -> Settings -> System -> Recovery -> Advanced Startup -> Restart now
+  - "Light blue" boot menu -> Troubleshoot -> UEFI Firmware Settings.
+  - Find the Secure Boot setting in your BIOS menu. If possible, set it to Disabled.
+    This option is usually in either the Security tab, the Boot tab, or the Authentication tab.
+    Save changes and exit => reboot
 
-> [!CAUTION]
-> This sample driver is not a Plug and Play driver. This is a minimal driver meant to demonstrate a feature of the operating system. Neither this driver nor its sample programs are intended for use in a production environment. Instead, they are intended for educational purposes and as a skeleton driver.
+## Loading / unloading the driver
 
-## Run the sample
+The driver must be explicitly loaded and unloaded. This must be done from and administrator
+account. There are two different ways to do this:
 
-To test this driver, copy the test app, Ioctlapp.exe, and the driver to the same directory, and run the application. The application will automatically load the driver, if it's not already loaded, and interact with the driver. When you exit the application, the driver will be stopped, unloaded and removed.
+- Using a PowerShell script. See `driver\loader.ps1`
+- Using a C/C++ application. See `driver\loader.cpp`
+
+Once the driver has been loaded using an administrator account, the application
+`app\testapp.cpp` can be run from any account.
+
+## References
+
+See other Windows drivers samples in https://github.com/microsoft/Windows-driver-samples/

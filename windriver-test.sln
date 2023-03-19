@@ -8,12 +8,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testapp", "app\testapp.vcxp
 		{29BD96E0-B6C5-42A0-B683-FD9740810699} = {29BD96E0-B6C5-42A0-B683-FD9740810699}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpusysregs", "driver\cpusysregs.vcxproj", "{29BD96E0-B6C5-42A0-B683-FD9740810699}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loader", "driver\loader.vcxproj", "{61899E58-10C2-4EB1-9508-58AE7DC12345}"
 	ProjectSection(ProjectDependencies) = postProject
 		{29BD96E0-B6C5-42A0-B683-FD9740810699} = {29BD96E0-B6C5-42A0-B683-FD9740810699}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpusysregs", "driver\cpusysregs.vcxproj", "{29BD96E0-B6C5-42A0-B683-FD9740810699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,6 @@
 #include <ntddk.h>
 #include "cpusysregs.h"
 
-#define TEST_TEXT "(53) Returned from Device Driver"
-
 // Device driver routine declarations.
 
 DRIVER_INITIALIZE DriverEntry;
@@ -110,30 +108,28 @@ NTSTATUS csr_ioctl(PDEVICE_OBJECT device_object, PIRP irp)
     // of the SystemBuffer is copied to the user output buffer and the SystemBuffer is freed.
     void* buffer = irp->AssociatedIrp.SystemBuffer;
 
-    // Data for this test.
-    PCHAR  data = TEST_TEXT;
-    size_t datalen = strlen(data)+1;
-
     PAGED_CODE();
 
-    if (in_length == 0 || out_length == 0) {
-        status = STATUS_INVALID_PARAMETER;
-    }
-    else {
-        switch (irp_sp->Parameters.DeviceIoControl.IoControlCode) {
-            case IOCTL_SIOCTL_METHOD_BUFFERED:
-                // Write to the buffer over-writes the input buffer content
-                RtlCopyMemory(buffer, data, out_length);
+    switch (irp_sp->Parameters.DeviceIoControl.IoControlCode) {
+        case CSR_IOCTL_FOO:
+            // Use a csr_foo_t as input and output
+            if (in_length < sizeof(csr_foo_t) || out_length < sizeof(csr_foo_t)) {
+                status = STATUS_INVALID_PARAMETER;
+            }
+            else {
+                // Use input data, update output buffer.
+                csr_foo_t* data = (csr_foo_t*)(buffer);
+                data->out = data->in + 1;
 
                 // Return output data size.
-                irp->IoStatus.Information = (out_length < datalen ? out_length : datalen);
-                break;
+                irp->IoStatus.Information = sizeof(csr_foo_t);
+            }
+            break;
 
-            default:
-                // The specified I/O control code is unrecognized by this driver.
-                status = STATUS_INVALID_DEVICE_REQUEST;
-                break;
-        }
+        default:
+            // The specified I/O control code is unrecognized by this driver.
+            status = STATUS_INVALID_DEVICE_REQUEST;
+            break;
     }
 
     // Complete the I/O.

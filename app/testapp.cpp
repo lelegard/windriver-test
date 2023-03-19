@@ -32,9 +32,11 @@ std::string ErrorMessage(::DWORD code = ::GetLastError())
 // Test application.
 int main(int argc, const char* argv[])
 {
-    const ::HANDLE device =
-        ::CreateFileA(CSR_DEVICE_NAME, GENERIC_READ | GENERIC_WRITE,
-                      0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    // Use command line parameter as integer to pass to the driver. Default: 47.
+    const int param = argc > 1 ? std::atoi(argv[1]) : 47;
+
+    const ::HANDLE device = ::CreateFileA(CSR_DEVICE_NAME, GENERIC_READ | GENERIC_WRITE,
+                                          0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
     if (device == INVALID_HANDLE_VALUE) {
         const ::DWORD err = ::GetLastError();
@@ -43,18 +45,17 @@ int main(int argc, const char* argv[])
     }
 
     // Perform ioctl.
-    char* input = "String from user application";
-    char output[100];
-    ::memset(output, 0, sizeof(output));
-
+    csr_foo_t in_data = {param, 0};
+    csr_foo_t out_data = {param, 0};
     ::ULONG retsize = 0;
-    bool ok = ::DeviceIoControl(device, ::DWORD(IOCTL_SIOCTL_METHOD_BUFFERED),
-                                input, ::DWORD(::strlen(input) + 1),
-                                output, sizeof(output),
+    bool ok = ::DeviceIoControl(device, ::DWORD(CSR_IOCTL_FOO),
+                                &in_data, ::DWORD(sizeof(in_data)),
+                                &out_data, ::DWORD(sizeof(out_data)),
                                 &retsize, NULL);
 
     if (ok) {
-        printf("Returned text: \"%.*s\"\n\n", int(retsize), output);
+        printf("In data: {%d, %d}, out data: {%d, %d}, returned size: %d bytes\n\n",
+               in_data.in, in_data.out, out_data.in, out_data.out, int(retsize));
     }
     else {
         const ::DWORD err = ::GetLastError();

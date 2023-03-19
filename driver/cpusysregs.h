@@ -2,7 +2,13 @@
 #define SIOCTL_TYPE 40000
 
 // The IOCTL function codes (12 bits) from 0x800 to 0xFFF are for customer use.
-#define IOCTL_SIOCTL_METHOD_BUFFERED CTL_CODE(SIOCTL_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#define CSR_IOCTL_FOO CTL_CODE(SIOCTL_TYPE, 0x900, METHOD_BUFFERED, FILE_ANY_ACCESS)
+
+// The command FOO uses this structure as parameter.
+typedef struct {
+    int in;
+    int out;
+} csr_foo_t;
 
 #define CSR_DRIVER_NAME      "cpusysregs"
 #define CSR_DEVICE_NAME      "\\\\.\\cpusysregs"
