@@ -2,6 +2,9 @@
 x64
 Win32
 ARM64
+tmp
 *.exe
 *.log
 *.user
+*.tmp
+*.zip

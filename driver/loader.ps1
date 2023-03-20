@@ -15,9 +15,15 @@ param(
 # -Load is the default.
 $Load = $Load -or ((-not $Unload) -and (-not $Query))
 
-# Driver description.
+# Local architecture is x64 or ARM64
+$Arch = if ((Get-CimInstance Win32_OperatingSystem).OSArchitecture -match "arm") {"AMR64"} else {"x64"}
+
+# Driver description. Search binary in build directory and in same directory.
 $DriverName = "cpusysregs"
-$DriverSys = "$PSScriptRoot\x64\Release\$DriverName.sys"
+$DriverSys = "$PSScriptRoot\$Arch\Release\$DriverName.sys"
+if (-not (Test-Path $DriverSys)) {
+    $DriverSys = "$PSScriptRoot\$DriverName.sys"
+}
 
 # Must be admin.
 $IsAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
