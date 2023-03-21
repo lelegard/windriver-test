@@ -32,20 +32,19 @@
   <PropertyGroup Label="Configuration">
     <TargetName>testapp</TargetName>
     <TargetVersion>Windows10</TargetVersion>
+    <PlatformToolset>v143</PlatformToolset>
     <DriverTargetPlatform>Desktop</DriverTargetPlatform>
-    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
-    <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='x64'">
     <Driver_SpectreMitigation>false</Driver_SpectreMitigation>
   </PropertyGroup>
 
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Release'">
     <UseDebugLibraries>False</UseDebugLibraries>
   </PropertyGroup>
 
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Debug'">
     <UseDebugLibraries>True</UseDebugLibraries>
   </PropertyGroup>
 
@@ -57,7 +56,7 @@
   </PropertyGroup>
 
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
 
   <ItemDefinitionGroup>
